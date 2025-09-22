@@ -1,0 +1,19 @@
+  spring:
+    config:
+      import: optional:file:.env[.properties]
+
+    security:
+  #    TODO: Actually have a way to register and login
+      user:
+        name: user
+        password: user
+      oauth2:
+        client:
+          registration:
+            github:
+              client-id: ${GITHUB_CLIENT_ID}
+              client-secret: ${GITHUB_CLIENT_SECRET}
+  #            TODO: Figure out how to setup google and email
+  #          google:
+  #            client-id: google-client-id
+  #            client-secret: google-clientsecret
