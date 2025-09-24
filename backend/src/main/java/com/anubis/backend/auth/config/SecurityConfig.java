@@ -17,12 +17,10 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-//                        .loginPage("/login") // TODO: add a custom login page or do that in frontend
                         .defaultSuccessUrl("/dashboard", true)
                         .permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
-//                        .loginPage("/login")
                         .defaultSuccessUrl("/dashboard", true)
                 )
                 .logout(logout -> logout

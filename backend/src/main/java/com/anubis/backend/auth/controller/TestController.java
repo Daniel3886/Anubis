@@ -12,7 +12,7 @@ public class TestController {
     @GetMapping("/dashboard")
     public String dashboard(@AuthenticationPrincipal OAuth2User user) {
         if(user != null) {
-            return "Hello, OAuth2 user: " +user.getAttribute(user.getName());
+            return "Hello, OAuth2 user: " + user;
         }
 
         return "Hello Authenticated User!";
