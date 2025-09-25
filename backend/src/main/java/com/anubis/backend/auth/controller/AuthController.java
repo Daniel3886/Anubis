@@ -43,4 +43,6 @@ public class AuthController {
         );
         return ResponseEntity.ok(response);
     }
+
+//    TODO: Endpoints: forgot-password, change-password, delete-account
 }
