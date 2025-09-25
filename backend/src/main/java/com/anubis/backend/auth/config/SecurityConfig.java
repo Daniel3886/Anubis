@@ -20,11 +20,12 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/dashboard", true)
                         .permitAll()
                 )
-                .oauth2Login(oauth2 -> oauth2
+                .oauth2Login(
+                        oauth2 -> oauth2
                         .defaultSuccessUrl("/dashboard", true)
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
+                        .logoutUrl("/logout") // TODO: is this actually needed?
                         .deleteCookies("JSESSIONID")
                         .logoutSuccessUrl("/login?logout")
                 );

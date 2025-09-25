@@ -23,10 +23,6 @@
     config:
       import: optional:file:.env[.properties]
     security:
-  #    TODO: Actually have a way to register and login
-      user:
-        name: user
-        password: user
       oauth2:
         client:
           registration:
