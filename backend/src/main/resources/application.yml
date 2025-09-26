@@ -1,38 +1,42 @@
-  spring:
-    mail:
-      host: smtp.gmail.com
-      port: 587
-      username: ${SUPPORT_EMAIL}
-      password: ${SUPPORT_PASSWORD}
-      properties:
-        mail.smtp.auth: true
-        mail.smtp.starttls.enable: true
-    datasource:
-      url: ${SPRING_DATASOURCE_URL}
-      username: ${SPRING_DATASOURCE_USERNAME}
-      password: ${SPRING_DATASOURCE_PASSWORD}
-      driver-class-name: org.postgresql.Driver
+spring:
+  mail:
+    from: ${FROM_EMAIL}
+    host: smtp-relay.brevo.com
+    port: 587
+    username: ${BREVO_LOGIN}
+    password: ${BREVO_MASTER_PASSWORD}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.transport.protocol: smtp
+      # For debugging purposes
+      mail.debug: true
 
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
 
-    jpa:
-      hibernate:
-        ddl-auto: update
-      show-sql: true
-      database-platform: org.hibernate.dialect.PostgreSQLDialect
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-    config:
-      import: optional:file:.env[.properties]
-    security:
-      oauth2:
-        client:
-          registration:
-            github:
-              client-id: ${GITHUB_CLIENT_ID}
-              client-secret: ${GITHUB_CLIENT_SECRET}
-  #            TODO: Figure out how to setup google and email
-  #          gmail:
-  #            client-id: google-client-id
-  #            client-secret: google-clientsecret
-  #          google:
-  #            client-id: google-client-id
-  #            client-secret: google-clientsecret
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: ${GITHUB_CLIENT_ID}
+            client-secret: ${GITHUB_CLIENT_SECRET}
+#            TODO: Figure out how to setup google and email
+#          gmail:
+#            client-id: google-client-id
+#            client-secret: google-clientsecret
+#          google:
+#            client-id: google-client-id
+#            client-secret: google-clientsecret
+  config:
+    import: optional:file:.env[.properties]
