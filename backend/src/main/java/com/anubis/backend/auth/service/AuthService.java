@@ -5,6 +5,9 @@ import com.anubis.backend.auth.repo.UserRepo;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 @Service
 public class AuthService {
 
@@ -19,23 +22,44 @@ public class AuthService {
     }
 
     public String register(RegisterDto dto) {
-        if (userRepo.existsUserByEmail(dto.getEmail())) {
-            throw new RuntimeException("This email is already taken");
+        var existingUserOpt = userRepo.findByEmail(dto.getEmail());
+
+        if (existingUserOpt.isPresent()) {
+            User existingUser = existingUserOpt.get();
+
+            if (existingUser.isVerified()) {
+                throw new RuntimeException("This email is already taken");
+            }
+
+            Duration elapsed = Duration.between(existingUser.getCreatedAt(), LocalDateTime.now());
+            long waitTimeSeconds = 30 - elapsed.getSeconds();
+
+            if (waitTimeSeconds > 0) {
+                throw new RuntimeException("Please wait " + waitTimeSeconds + " seconds before retrying registration");
+            }
+
+            existingUser.setUsername(dto.getUsername());
+            existingUser.setPassword(passwordEncoder.encode(dto.getPassword()));
+            existingUser.setVerificationCode(generateVerificationCode());
+            existingUser.setCreatedAt(LocalDateTime.now());
+            userRepo.save(existingUser);
+
+            emailService.sendVerificationEmail(dto.getUsername(), dto.getEmail(), existingUser.getVerificationCode());
+            return "User re-registered successfully. Verification code sent to your email.";
         }
-        String code = generateVerificationCode();
 
         User user = new User();
         user.setUsername(dto.getUsername());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setEmail(dto.getEmail());
         user.setVerified(false);
-        user.setVerificationCode(code);
+        user.setVerificationCode(generateVerificationCode());
+        user.setCreatedAt(LocalDateTime.now());
 
         userRepo.save(user);
+        emailService.sendVerificationEmail(dto.getUsername(), dto.getEmail(), user.getVerificationCode());
 
-        emailService.sendVerificationEmail(dto.getUsername(), dto.getEmail(), code);
-
-        return "User registered successfully " + dto.getUsername() + ". Verification code sent to your email.";
+        return "User registered successfully. Verification code sent to your email.";
     }
 
     public String verifyEmail(VerifyEmailDto dto) {
