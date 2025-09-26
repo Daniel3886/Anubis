@@ -16,16 +16,14 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(form -> form
-                        .defaultSuccessUrl("/dashboard", true)
-                        .permitAll()
-                )
                 .oauth2Login(
-                        oauth2 -> oauth2
-                        .defaultSuccessUrl("/dashboard", true)
+                        oauth -> oauth.successHandler(
+                        (request, response, authentication) -> {
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"status\":\"ok\"}");
+                        })
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/logout") // TODO: is this actually needed?
                         .deleteCookies("JSESSIONID")
                         .logoutSuccessUrl("/login?logout")
                 );

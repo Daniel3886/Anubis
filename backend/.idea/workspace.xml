@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86339478-800b-4116-8c33-1ea3dd2c1117" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/anubis/backend/auth/exceptions/GlobalExceptionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/anubis/backend/auth/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/anubis/backend/auth/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/anubis/backend/auth/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/anubis/backend/auth/controller/TestController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +109,9 @@
       <workItem from="1758722373964" duration="128000" />
       <workItem from="1758722515400" duration="13434000" />
       <workItem from="1758737570438" duration="1423000" />
-      <workItem from="1758797506719" duration="8310000" />
+      <workItem from="1758797506719" duration="9115000" />
+      <workItem from="1758867773738" duration="502000" />
+      <workItem from="1758876745249" duration="12318000" />
     </task>
     <servers />
   </component>
