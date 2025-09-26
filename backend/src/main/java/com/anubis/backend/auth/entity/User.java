@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "users")
 @Getter
@@ -27,4 +29,6 @@ public class User {
     private boolean verified;
 
     private String verificationCode;
+
+    private LocalDateTime createdAt;
 }
