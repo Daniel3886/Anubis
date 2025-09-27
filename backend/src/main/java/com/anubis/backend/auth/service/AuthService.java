@@ -14,14 +14,25 @@ public class AuthService {
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final DomainValidationService domainValidationService;
 
-    public AuthService(UserRepo userRepo, PasswordEncoder passwordEncoder, EmailService emailService) {
+    public AuthService(
+            UserRepo userRepo,
+            PasswordEncoder passwordEncoder,
+            EmailService emailService,
+            DomainValidationService domainValidationService
+    ) {
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
+        this.domainValidationService = domainValidationService;
     }
 
     public String register(RegisterDto dto) {
+        if (!domainValidationService.isDomainValid(dto.getEmail())) {
+            throw new RuntimeException("Invalid or non-existent email domain: " + dto.getEmail());
+        }
+
         var existingUserOpt = userRepo.findByEmail(dto.getEmail());
 
         if (existingUserOpt.isPresent()) {
