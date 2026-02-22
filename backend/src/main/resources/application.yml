@@ -31,12 +31,5 @@ spring:
           github:
             client-id: ${GITHUB_CLIENT_ID}
             client-secret: ${GITHUB_CLIENT_SECRET}
-#            TODO: Figure out how to setup google and email
-#          gmail:
-#            client-id: google-client-id
-#            client-secret: google-clientsecret
-#          google:
-#            client-id: google-client-id
-#            client-secret: google-clientsecret
   config:
     import: optional:file:.env[.properties]
