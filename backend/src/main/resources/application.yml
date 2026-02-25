@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: optional:file:.env[.properties]
   mail:
     from: ${FROM_EMAIL}
     host: smtp-relay.brevo.com
@@ -20,10 +22,11 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
+#  TODO: check if this will be utilized at all, if not remove it
   security:
     oauth2:
       client:
@@ -31,5 +34,3 @@ spring:
           github:
             client-id: ${GITHUB_CLIENT_ID}
             client-secret: ${GITHUB_CLIENT_SECRET}
-  config:
-    import: optional:file:.env[.properties]
