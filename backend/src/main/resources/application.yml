@@ -1,3 +1,6 @@
+org:
+  flywaydb: flyway-database-postgresql
+
 spring:
   config:
     import: optional:file:.env[.properties]
@@ -14,19 +17,26 @@ spring:
       # For debugging purposes
       mail.debug: true
 
+# Database
   datasource:
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
+# Hibernate
   jpa:
     hibernate:
       ddl-auto: validate
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
-#  TODO: check if this will be utilized at all, if not remove it
+# Flyway
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
   security:
     oauth2:
       client:
