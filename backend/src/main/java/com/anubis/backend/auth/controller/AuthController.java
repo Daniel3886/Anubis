@@ -3,11 +3,13 @@ package com.anubis.backend.auth.controller;
 import com.anubis.backend.auth.dto.*;
 import com.anubis.backend.auth.service.AuthService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Tag(name = "Auth", description = "Authentication related endpoints")
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
